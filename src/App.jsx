@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 
-// --- Компонент Прелоадера (Исправленный под React) ---
 function Preloader({ isVisible, counterValue }) {
   if (!isVisible) return null;
 
@@ -21,16 +20,12 @@ function Preloader({ isVisible, counterValue }) {
   );
 }
 
-// --- Главный компонент твоего портфолио ---
 function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
   const [activeTab, setActiveTab] = useState('hero');
   const navigate = useNavigate();
 
-  // Обработчик отправки формы
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    
-    // Включаем прелоадер на 2 секунды на время отправки email
     triggerGlobalLoading(2000);
 
     const form = e.target;
@@ -44,7 +39,7 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
       });
       form.reset();
     } catch (error) {
-      console.error("Ошибка при отправке формы:", error);
+      console.error(error);
     }
   };
 
@@ -55,7 +50,6 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
           <span className="logo-icon">♱</span> markelxvv
         </div>
         <div className="nav-links">
-          {/* Возвращаем стандартный моментальный стейт без вызова лоадера */}
           <button className={activeTab === 'hero' ? 'active' : ''} onClick={() => setActiveTab('hero')}>
             HOME
           </button>
@@ -79,7 +73,7 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
             </a>
             <a href="https://t.me/markelxvvv" target="_blank" rel="noreferrer" title="Telegram">
               <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1(4.6-32.7L418.2 64.3c19.5-6.9 36.5 4.7 28.5 34.3z"></path>
+                <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1-4.6-32.7L418.2 64.3c19.5-6.9 36.5 4.7 28.5 34.3z"></path>
               </svg>
             </a>
             <a href="https://github.com/koumorikai" target="_blank" rel="noreferrer" title="GitHub">
@@ -185,7 +179,6 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
   );
 }
 
-// --- Компонент ошибки 404 ---
 function NotFound({ globalLoading }) {
   const navigate = useNavigate();
 
@@ -227,13 +220,10 @@ function NotFound({ globalLoading }) {
   );
 }
 
-// --- Контейнер отслеживания роутера ---
 function AppContent({ triggerGlobalLoading, globalLoading }) {
   const location = useLocation();
 
-  // Лоадер сработает только при переходах между физическими страницами роутера (например, на /portfolio)
   useEffect(() => {
-    // Чтобы при первом заходе лоадер не перезапускался дважды, проверяем роут
     if (location.pathname !== '/') {
       triggerGlobalLoading(600);
     }
@@ -247,12 +237,11 @@ function AppContent({ triggerGlobalLoading, globalLoading }) {
   );
 }
 
-// --- Главный Роутер + стейт Прелоадера ---
 function App() {
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState('00');
 
-  const triggerGlobalLoading = (duration = 1000) => {
+  const triggerGlobalLoading = (duration = 100) => {
     setLoading(true);
     let count = 0;
     setCounter('00');
@@ -273,9 +262,8 @@ function App() {
     }, duration);
   };
 
-  // Эффект первичного захода на сайт (срабатывает ОДИН раз при запуске приложения)
   useEffect(() => {
-    triggerGlobalLoading(1500); // 1.5 секунды брутального старта
+    triggerGlobalLoading(1500);
   }, []);
 
   return (
