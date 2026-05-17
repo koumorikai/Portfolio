@@ -203,13 +203,15 @@ function NotFound() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPortfolio />} />
-        <Route path="/portfolio" element={<NotFound />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+        <HashRouter>
+          <Routes>
+            {/* Теперь при переходе на сайт будет открываться главная */}
+            <Route path="/" element={<Home />} />
+            
+            {/* Ошибка 404 выскочит только если юзер введет бред в урл */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </HashRouter>
   );
 }
 

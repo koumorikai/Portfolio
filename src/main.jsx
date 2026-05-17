@@ -1,15 +1,10 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
 
-function main() {
-  return (
-    <HashRouter>
-      <Routes>
-        {/* Главная страница теперь будет открываться всегда по умолчанию */}
-        <Route path="/" element={<Home />} />
-        
-        {/* Ошибка 404 сработает только на несуществующий урл */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </HashRouter>
-  );
-}
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
