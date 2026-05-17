@@ -111,12 +111,18 @@ body {
   justify-content: center;
   gap: 40px;
   width: 100%;
+  position: relative;
 }
 
 .social-links {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  position: absolute;
+  left: -300px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
 }
 
 .social-links a {
@@ -410,6 +416,18 @@ body {
   line-height: 1.6;
 }
 
+@media (max-width: 1400px) {
+  .social-links {
+    left: -120px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .social-links {
+    left: -70px;
+  }
+}
+
 @media (max-width: 1100px) {
   .portfolio-site {
     padding: 40px 40px;
@@ -421,6 +439,17 @@ body {
 
   .tech-tags {
     justify-content: flex-start;
+  }
+  
+  .social-links {
+    left: -45px;
+  }
+}
+
+@media (max-width: 950px) {
+  .social-links {
+    left: -35px;
+    gap: 20px;
   }
 }
 
@@ -440,14 +469,17 @@ body {
   }
 
   .visual-block {
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 20px;
   }
 
   .social-links {
+    position: static;
+    transform: none;
     flex-direction: row;
     justify-content: center;
     gap: 30px;
+    margin-top: 15px;
   }
 
   .avatar-blob {
