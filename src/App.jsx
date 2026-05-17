@@ -195,7 +195,6 @@ function NotFound() {
           <div className="line"></div>
         </div>
         <div className="scroll-down">
-          LOST IN SPACE <span className="arrow">→</span>
         </div>
       </div>
     </div>
