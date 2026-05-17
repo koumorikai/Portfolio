@@ -56,7 +56,7 @@ function MainPortfolio() {
           </div>
           
           <div className="avatar-blob">
-            <img src={`${import.meta.env.BASE_URL}yamori.png`} className="avatar-img" alt="Avatar" />
+            <img src="./yamori.png" className="avatar-img" alt="Avatar" />
           </div>
         </div>
 
