@@ -186,7 +186,7 @@ function NotFound({ globalLoading }) {
     <div className={`portfolio-site not-found-page ${globalLoading ? 'fade-hidden' : 'fade-visible'}`}>
       <nav className="navbar">
         <div className="logo">
-          <span className="logo-icon">❖</span> markelxvv
+          <span className="logo-icon">♱</span> markelxvv
         </div>
         <div className="nav-links">
           <button onClick={() => navigate('/')}>GO HOME</button>
@@ -202,9 +202,6 @@ function NotFound({ globalLoading }) {
               <span className="about-light-text">FOUND.</span>
             </h2>
             <p className="error-subtitle">THE REQUESTED URL DOES NOT EXIST ON THIS SERVER</p>
-            <button className="form-submit-btn error-btn" onClick={() => navigate('/')}>
-              RETURN TO SAFETY <span>→</span>
-            </button>
           </div>
         </div>
       </div>
