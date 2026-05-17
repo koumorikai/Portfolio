@@ -26,7 +26,7 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    triggerGlobalLoading(2000);
+    triggerGlobalLoading(1000);
 
     const form = e.target;
     const formData = new FormData(form);
@@ -94,14 +94,14 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
             <div className="slide-content hero-text">
               <h1 className="main-title">
                 CREATIVE <br />
-                <span className="light-text">DEVELOPER</span>
+                <span className="medium-text">DEVELOPER</span>
               </h1>
               <p className="subtitle">SENSIBLE TO FULLSTACK</p>
             </div>
 
             <div className="slide-content about-text">
               <h2 className="about-title">
-                HI) I'M A <br />
+                HI, I'M A <br />
                 <span className="about-light-text">FULLSTACK</span> <br />
                 DEVELOPER.
               </h2>
@@ -225,7 +225,7 @@ function AppContent({ triggerGlobalLoading, globalLoading }) {
 
   useEffect(() => {
     if (location.pathname !== '/') {
-      triggerGlobalLoading(600);
+      triggerGlobalLoading(300);
     }
   }, [location.pathname]);
 
@@ -247,14 +247,14 @@ function App() {
     setCounter('00');
 
     const interval = setInterval(() => {
-      count += Math.floor(Math.random() * 6) + 4; 
+      count += Math.floor(Math.random() * 8) + 6; 
       if (count >= 17) {
         setCounter('17');
         clearInterval(interval);
       } else {
         setCounter(count < 10 ? '0' + count : String(count));
       }
-    }, 25);
+    }, 5  );
 
     setTimeout(() => {
       clearInterval(interval);
@@ -263,7 +263,7 @@ function App() {
   };
 
   useEffect(() => {
-    triggerGlobalLoading(1500);
+    triggerGlobalLoading(600);
   }, []);
 
   return (
