@@ -484,3 +484,68 @@
       font-size: 0.75rem;
     }
   }
+  /* --- СТИЛИ ДЛЯ РОК-ПРЕЛОАДЕРА (MARKELXVV STYLE) --- */
+#preloader {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  background-color: #000000 !important; /* Чистый черный */
+  z-index: 999999 !important; /* Поверх всего */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.preloader-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 24px !important;
+}
+
+.preloader-logo {
+  font-family: sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 5px !important;
+  color: #ffffff !important;
+  text-transform: uppercase !important;
+  opacity: 0.7 !important;
+}
+
+/* Тонкая линия загрузки */
+.loader-bar-wrapper {
+  width: 200px !important;
+  height: 1px !important;
+  background-color: #222222 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.loader-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #ffffff !important;
+  animation: shiftBarAnim 1.4s infinite cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Огромные брутальные цифры */
+.preloader-counter {
+  font-family: sans-serif !important;
+  font-size: 6rem !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  letter-spacing: -3px !important;
+  line-height: 1 !important;
+}
+
+@keyframes shiftBarAnim {
+  0% { left: -100%; }
+  50% { left: 0; }
+  100% { left: 100%; }
+}

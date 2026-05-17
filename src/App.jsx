@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 
-// --- Компонент Прелоадера в стиле рок-минимализма ---
+// --- Компонент Прелоадера (Исправленный под React) ---
 function Preloader({ isVisible, counterValue }) {
   if (!isVisible) return null;
 
@@ -22,30 +22,20 @@ function Preloader({ isVisible, counterValue }) {
 }
 
 // --- Главный компонент твоего портфолио ---
-function MainPortfolio({ triggerGlobalLoading }) {
+function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
   const [activeTab, setActiveTab] = useState('hero');
-  const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      isLoaded = true; // Сеттер для анимации появления контента
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Кастомный обработчик для плавного переключения локальных табов
+  // Переключение локальных табов
   const handleTabChange = (tabName) => {
     if (activeTab === tabName) return;
-    triggerGlobalLoading(500); // Быстрая вспышка загрузки на 500мс
+    triggerGlobalLoading(500); 
     setActiveTab(tabName);
   };
 
   // Обработчик отправки формы
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    
-    // Включаем прелоадер на 2 секунды, пока идет отправка
     triggerGlobalLoading(2000);
 
     const form = e.target;
@@ -64,7 +54,7 @@ function MainPortfolio({ triggerGlobalLoading }) {
   };
 
   return (
-    <div className={`portfolio-site ${isLoaded ? 'fade-visible' : 'fade-hidden'}`}>
+    <div className={`portfolio-site ${globalLoading ? 'fade-hidden' : 'fade-visible'}`}>
       <nav className="navbar">
         <div className="logo">
           <span className="logo-icon">♱</span> markelxvv
@@ -200,19 +190,11 @@ function MainPortfolio({ triggerGlobalLoading }) {
 }
 
 // --- Компонент ошибки 404 ---
-function NotFound() {
+function NotFound({ globalLoading }) {
   const navigate = useNavigate();
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
-    <div className={`portfolio-site not-found-page ${isLoaded ? 'fade-visible' : 'fade-hidden'}`}>
+    <div className={`portfolio-site not-found-page ${globalLoading ? 'fade-hidden' : 'fade-visible'}`}>
       <nav className="navbar">
         <div className="logo">
           <span className="logo-icon">❖</span> markelxvv
@@ -250,35 +232,33 @@ function NotFound() {
 }
 
 // --- Контейнер отслеживания роутера ---
-function AppContent({ triggerGlobalLoading }) {
+function AppContent({ triggerGlobalLoading, globalLoading }) {
   const location = useLocation();
 
-  // При любом физическом переходе по роутам (например на /portfolio и назад) запускается лоадер
   useEffect(() => {
     triggerGlobalLoading(600);
   }, [location.pathname]);
 
   return (
     <Routes>
-      <Route path="/" element={<MainPortfolio triggerGlobalLoading={triggerGlobalLoading} />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<MainPortfolio triggerGlobalLoading={triggerGlobalLoading} globalLoading={globalLoading} />} />
+      <Route path="*" element={<NotFound globalLoading={globalLoading} />} />
     </Routes>
   );
 }
 
-// --- Главный переключатель путей (Роутер) + стейт Прелоадера ---
+// --- Главный Роутер + стейт Прелоадера ---
 function App() {
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState('00');
 
-  // Единая функция для вызова загрузки из любого места приложения
   const triggerGlobalLoading = (duration = 1000) => {
     setLoading(true);
     let count = 0;
     setCounter('00');
 
     const interval = setInterval(() => {
-      count += Math.floor(Math.random() * 6) + 4; // Быстрый рандомный шаг цифр
+      count += Math.floor(Math.random() * 6) + 4; 
       if (count >= 100) {
         setCounter('99');
         clearInterval(interval);
@@ -293,7 +273,6 @@ function App() {
     }, duration);
   };
 
-  // Эффект первичного захода на сайт
   useEffect(() => {
     triggerGlobalLoading(1200);
   }, []);
@@ -301,7 +280,7 @@ function App() {
   return (
     <>
       <Preloader isVisible={loading} counterValue={counter} />
-      <AppContent triggerGlobalLoading={triggerGlobalLoading} />
+      <AppContent triggerGlobalLoading={triggerGlobalLoading} globalLoading={loading} />
     </>
   );
 }
