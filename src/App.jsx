@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 
-
+// Главный компонент твоего портфолио
 function MainPortfolio() {
   const [activeTab, setActiveTab] = useState('hero');
   const [isLoaded, setIsLoaded] = useState(false);
@@ -150,6 +150,7 @@ function MainPortfolio() {
   );
 }
 
+// Компонент ошибки 404
 function NotFound() {
   const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -201,17 +202,13 @@ function NotFound() {
   );
 }
 
+// Главный переключатель путей (Роутер)
 function App() {
   return (
-        <HashRouter>
-          <Routes>
-            {/* Теперь при переходе на сайт будет открываться главная */}
-            <Route path="/" element={<Home />} />
-            
-            {/* Ошибка 404 выскочит только если юзер введет бред в урл */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </HashRouter>
+    <Routes>
+      <Route path="/" element={<MainPortfolio />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
