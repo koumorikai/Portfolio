@@ -1,0 +1,551 @@
+/* ==========================================================================
+   1. СБРОС СТИЛЕЙ И БАЗОВЫЕ НАСТРОЙКИ
+   ========================================================================== */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  body {
+    background-color: #0b0b0b;
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  
+  /* Основной контейнер-оболочка */
+  .portfolio-site {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 80px;
+    position: relative;
+    background-image: radial-gradient(circle at 50% 50%, #151515 0%, #0b0b0b 100%);
+  }
+  
+  /* Анимация плавного появления */
+  .fade-hidden {
+    opacity: 0;
+    transform: scale(0.98) translateY(20px);
+    filter: blur(10px);
+  }
+  
+  .fade-visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+    transition: 
+      opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+      transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), 
+      filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  /* ==========================================================================
+     2. ШАПКА (НАВБАР)
+     ========================================================================== */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    width: 100%;
+  }
+  
+  .logo {
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .logo-icon {
+    font-size: 1.2rem;
+    color: #ffffff;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-links button {
+    background: none;
+    border: none;
+    color: #555555;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-left: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links button:hover, 
+  .nav-links button.active {
+    color: #ffffff;
+  }
+  
+  /* ==========================================================================
+     3. ГЛАВНЫЙ КОНТЕНТ (ПРОФЕССИОНАЛЬНАЯ СЕТКА)
+     ========================================================================== */
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Ровно пополам на десктопе */
+    align-items: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto;
+    flex-grow: 1;
+    z-index: 5;
+  }
+  
+  /* --- ЛЕВАЯ СЕКЦИЯ (СОЦСЕТИ И АВАТАР) --- */
+  .visual-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+  }
+  
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .social-links a {
+    color: #444444;
+    font-size: 1.3rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .social-links a:hover {
+    color: #ffffff;
+    transform: translateY(-3px);
+  }
+  
+  /* Аватар-клякса */
+  .avatar-blob {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 1 / 1;
+    background-color: #1a1a1a;
+    border-radius: 40% 60% 65% 35% / 40% 45% 55% 60%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+  
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(120%) brightness(90%);
+  }
+  
+  /* --- ПРАВАЯ СЕКЦИЯ (ГИБКИЙ СЛАЙДЕР) --- */
+  .text-window {
+    width: 100%;
+    max-width: 550px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .text-slider {
+    display: flex;
+    width: 300%;
+    transition: transform 0.7s cubic-bezier(0.85, 0, 0.15, 1);
+  }
+  
+  /* Сдвиги слайдов */
+  .text-slider.hero { transform: translateX(0); }
+  .text-slider.about { transform: translateX(-33.3333%); }
+  .text-slider.contact { transform: translateX(-66.6666%); }
+  
+  .slide-content {
+    width: 33.3333%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  /* ==========================================================================
+     4. СТИЛИЗАЦИЯ СЛАЙДОВ И ТЕКСТА
+     ========================================================================== */
+  /* Слайд 1: Главная */
+  .main-title {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+  }
+  
+  .light-text {
+    font-weight: 300;
+    letter-spacing: 2px;
+  }
+  
+  .subtitle {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #666666;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+  }
+  
+  /* Слайд 2: О себе */
+  .about-title, .contact-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+  
+  .about-light-text {
+    font-weight: 300;
+  }
+  
+  /* Сетка навыков (Тэги) */
+  .about-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .tech-tag {
+    background: #111111;
+    border: 1px solid #222222;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #888888;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  
+  .tech-tag:hover {
+    border-color: #ffffff;
+    color: #ffffff;
+  }
+  
+  .grid-footer-text {
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #555555;
+    letter-spacing: 1px;
+  }
+  
+  /* Слайд 3: Форма контактов */
+  .rock-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .form-group {
+    position: relative;
+    width: 100%;
+  }
+  
+  .rock-form input, 
+  .rock-form textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #222222;
+    padding: 12px 0;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    outline: none;
+    text-transform: uppercase;
+    transition: border-color 0.3s ease;
+  }
+  
+  .rock-form textarea {
+    height: 65px;
+    resize: none;
+    font-family: inherit;
+  }
+  
+  .rock-form input:focus, 
+  .rock-form textarea:focus {
+    border-bottom-color: #ffffff;
+  }
+  
+  .rock-form input::placeholder, 
+  .rock-form textarea::placeholder {
+    color: #333333;
+  }
+  
+  .form-submit-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    color: #555555;
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .form-submit-btn:hover {
+    color: #ffffff;
+  }
+  
+  .form-submit-btn span {
+    transition: transform 0.3s ease;
+  }
+  
+  .form-submit-btn:hover span {
+    transform: translateX(6px);
+  }
+  
+  /* ==========================================================================
+     5. ПОДВАЛ (ФУТЕР)
+     ========================================================================== */
+  .hero-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    width: 100%;
+  }
+  
+  .counter-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+  
+  .line {
+    width: 80px;
+    height: 2px;
+    background-color: #ffffff;
+  }
+  
+  .scroll-down {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #333333;
+    text-transform: uppercase;
+  }
+  
+  /* ==========================================================================
+     6. СТРАНИЦА МАКЕТА ПОД КЛИК / ОШИБКИ (404)
+     ========================================================================== */
+  .not-found-page {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .not-found-page .main-content {
+    grid-template-columns: 1fr; /* Одиночная колонка по центру */
+    justify-content: center;
+    max-width: 650px;
+  }
+  
+  .not-found-page .error-code {
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #444444;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  .not-found-page .error-title {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  
+  .not-found-page .error-subtitle {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #666666;
+    letter-spacing: 2px;
+    line-height: 1.6;
+  }
+  
+  .not-found-page .error-btn {
+    margin: 30px auto 0 auto;
+    align-self: center;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+  }
+  
+  
+  /* ==========================================================================
+     7. МЕДИА-ЗАПРОСЫ (АДАПТИВНОСТЬ НА ВСЕ УСТРОЙСТВА)
+     ========================================================================== */
+  
+  /* Ноутбуки и небольшие экраны (до 1100px) */
+  @media (max-width: 1100px) {
+    .portfolio-site { padding: 40px 50px; }
+    .main-content { gap: 40px; }
+    .main-title { font-size: 3.5rem; }
+    .about-title, .contact-title { font-size: 3rem; }
+  }
+  
+  /* Планшетная вертикальная версия (до 850px) */
+  @media (max-width: 850px) {
+    .portfolio-site {
+      padding: 30px 40px;
+      height: auto;
+      min-height: 100vh;
+      overflow-y: auto; /* Включаем вертикальный скролл */
+    }
+  
+    .main-content {
+      grid-template-columns: 1fr; /* Перестраиваем в одну колонку */
+      margin: 40px auto;
+      gap: 50px;
+      text-align: center;
+    }
+  
+    .visual-block {
+      flex-direction: column-reverse; /* Ссылки падают под фото */
+      gap: 20px;
+    }
+  
+    .social-links {
+      flex-direction: row; /* Соцсети выстраиваются горизонтально */
+      justify-content: center;
+      gap: 35px;
+    }
+  
+    .avatar-blob {
+      max-width: 300px; /* Аккуратный размер для планшета */
+    }
+  
+    .text-window {
+      max-width: 100%;
+    }
+  
+    .slide-content {
+      padding: 0;
+    }
+  
+    .about-grid {
+      justify-content: center; /* Центровка тегов по центру */
+    }
+  
+    .form-submit-btn {
+      align-self: center; /* Центруем кнопку формы */
+    }
+  
+    .hero-footer {
+      margin-top: 30px;
+    }
+  }
+  
+  /* Мобильные телефоны (до 550px) */
+  @media (max-width: 550px) {
+    .portfolio-site {
+      padding: 25px 20px;
+    }
+  
+    .navbar {
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .logo {
+      font-size: 1rem;
+    }
+  
+    .nav-links {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  
+    .nav-links button {
+      margin: 0 10px;
+      font-size: 0.75rem;
+    }
+  
+    .avatar-blob {
+      max-width: 240px; /* Компактное фото на мобилке */
+    }
+  
+    .main-title {
+      font-size: 2.4rem;
+    }
+  
+    .about-title, .contact-title, .not-found-page .error-title {
+      font-size: 2.2rem;
+    }
+  
+    .subtitle {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+    }
+  
+    .rock-form input, .rock-form textarea {
+      font-size: 0.8rem;
+    }
+  
+    .hero-footer {
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 40px;
+    }
+  
+    .number {
+      font-size: 2.8rem;
+    }
+  
+    .line {
+      width: 60px;
+    }
+  }
+  
+  /* Совсем мелкие экраны (до 360px) */
+  @media (max-width: 360px) {
+    .nav-links button {
+      margin: 0 6px;
+      font-size: 0.7rem;
+    }
+    .main-title { font-size: 2rem; }
+  }
