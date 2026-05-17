@@ -260,7 +260,7 @@ function App() {
     const interval = setInterval(() => {
       count += Math.floor(Math.random() * 6) + 4; 
       if (count >= 100) {
-        setCounter('99');
+        setCounter('17');
         clearInterval(interval);
       } else {
         setCounter(count < 10 ? '0' + count : String(count));
