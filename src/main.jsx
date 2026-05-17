@@ -1,13 +1,13 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
-function App() {
+function main() {
   return (
     <HashRouter>
       <Routes>
-        {/* Теперь при переходе на сайт будет открываться главная */}
+        {/* Главная страница теперь будет открываться всегда по умолчанию */}
         <Route path="/" element={<Home />} />
         
-        {/* Ошибка 404 выскочит только если юзер введет бред в урл */}
+        {/* Ошибка 404 сработает только на несуществующий урл */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
