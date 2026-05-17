@@ -9,7 +9,7 @@ function NotFound() {
     <div className="portfolio-site not-found-page">
       <nav className="navbar">
         <div className="logo">
-          <span className="logo-icon">❖</span> markelxvv
+          <span className="logo-icon">♱</span> markelxvv
         </div>
         <div className="nav-links">
           <button onClick={() => navigate('/')}>GO HOME</button>
