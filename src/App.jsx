@@ -26,16 +26,11 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
   const [activeTab, setActiveTab] = useState('hero');
   const navigate = useNavigate();
 
-  // Переключение локальных табов
-  const handleTabChange = (tabName) => {
-    if (activeTab === tabName) return;
-    triggerGlobalLoading(500); 
-    setActiveTab(tabName);
-  };
-
   // Обработчик отправки формы
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    
+    // Включаем прелоадер на 2 секунды на время отправки email
     triggerGlobalLoading(2000);
 
     const form = e.target;
@@ -60,13 +55,14 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
           <span className="logo-icon">♱</span> markelxvv
         </div>
         <div className="nav-links">
-          <button className={activeTab === 'hero' ? 'active' : ''} onClick={() => handleTabChange('hero')}>
+          {/* Возвращаем стандартный моментальный стейт без вызова лоадера */}
+          <button className={activeTab === 'hero' ? 'active' : ''} onClick={() => setActiveTab('hero')}>
             HOME
           </button>
-          <button className={activeTab === 'about' ? 'active' : ''} onClick={() => handleTabChange('about')}>
+          <button className={activeTab === 'about' ? 'active' : ''} onClick={() => setActiveTab('about')}>
             ABOUT
           </button>
-          <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => handleTabChange('contact')}>
+          <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => setActiveTab('contact')}>
             CONTACT
           </button>
           <button onClick={() => navigate('/portfolio')}>PORTFOLIO</button>
@@ -83,7 +79,7 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
             </a>
             <a href="https://t.me/markelxvvv" target="_blank" rel="noreferrer" title="Telegram">
               <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 64.3c19.5-6.9 36.5 4.7 28.5 34.3z"></path>
+                <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1(4.6-32.7L418.2 64.3c19.5-6.9 36.5 4.7 28.5 34.3z"></path>
               </svg>
             </a>
             <a href="https://github.com/koumorikai" target="_blank" rel="noreferrer" title="GitHub">
@@ -235,8 +231,12 @@ function NotFound({ globalLoading }) {
 function AppContent({ triggerGlobalLoading, globalLoading }) {
   const location = useLocation();
 
+  // Лоадер сработает только при переходах между физическими страницами роутера (например, на /portfolio)
   useEffect(() => {
-    triggerGlobalLoading(600);
+    // Чтобы при первом заходе лоадер не перезапускался дважды, проверяем роут
+    if (location.pathname !== '/') {
+      triggerGlobalLoading(600);
+    }
   }, [location.pathname]);
 
   return (
@@ -260,7 +260,7 @@ function App() {
     const interval = setInterval(() => {
       count += Math.floor(Math.random() * 6) + 4; 
       if (count >= 100) {
-        setCounter('17');
+        setCounter('99');
         clearInterval(interval);
       } else {
         setCounter(count < 10 ? '0' + count : String(count));
@@ -273,8 +273,9 @@ function App() {
     }, duration);
   };
 
+  // Эффект первичного захода на сайт (срабатывает ОДИН раз при запуске приложения)
   useEffect(() => {
-    triggerGlobalLoading(1200);
+    triggerGlobalLoading(1500); // 1.5 секунды брутального старта
   }, []);
 
   return (
