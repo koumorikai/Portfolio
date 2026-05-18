@@ -31,7 +31,7 @@ function PortfolioPage({ globalLoading, activeTab, setActiveTab }) {
       number: '01',
       name: 'Hotel Managment',
       tags: ['Flask', 'MySQL', 'Dashboard'],
-      image: `${import.meta.env.BASE_URL}images/mellow-screenshot.png`,
+      image: `${import.meta.env.BASE_URL}images/mellow.png`,
       repo: 'https://github.com/koumorikai/Hotel-Admin',
       process: 'Designed monolithic dashboard UI with custom charts. Established Relational MySQL architecture managed under Flask ORM models. Solved synchronization delay issues by building customized reactive hooks.',
       subtext: 'Project Showcase: Hospitality & Booking Management'
@@ -42,7 +42,7 @@ function PortfolioPage({ globalLoading, activeTab, setActiveTab }) {
       name: 'Veloria Fina',
       tags: ['Vite', 'React','Minimalism'],
       image: '/images/veloria-screenshot.png',
-      repo: `${import.meta.env.BASE_URL}images/veloria-screenshot.png`,
+      repo: `${import.meta.env.BASE_URL}images/veloria.png`,
       process: 'A high-contrast, minimalist interface with a bright and soft style has been developed. Smooth animation sequences have been implemented using layout optimization. Fully repeatable custom layout components have been structured.',
       subtext: 'Project Showcase: Luxury Fragrance Concept Store'
     },
