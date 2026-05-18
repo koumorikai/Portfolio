@@ -20,8 +20,138 @@ function Preloader({ isVisible, counterValue }) {
   );
 }
 
-function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
-  const [activeTab, setActiveTab] = useState('hero');
+function PortfolioPage({ globalLoading, activeTab, setActiveTab }) {
+  const navigate = useNavigate();
+  const [hoveredProjectId, setHoveredProjectId] = useState(1);
+  const [isVisualHovered, setIsVisualHovered] = useState(false);
+
+  const mockProjects = [
+    {
+      id: 1,
+      number: '01',
+      name: 'Hotel Managment',
+      tags: ['Flask', 'MySQL', 'Dashboard'],
+      image: '/images/mellow-screenshot.png',
+      repo: 'https://github.com/koumorikai/Hotel-Admin',
+      process: 'Designed monolithic dashboard UI with custom charts. Established Relational MySQL architecture managed under Flask ORM models. Solved synchronization delay issues by building customized reactive hooks.',
+      subtext: 'Project Showcase: Hospitality & Booking Management'
+    },
+    {
+      id: 2,
+      number: '02',
+      name: 'Veloria Fina',
+      tags: ['Vite', 'React','Minimalism'],
+      image: '/images/veloria-screenshot.png',
+      repo: 'https://github.com/koumorikai/veloria-fina',
+      process: 'A high-contrast, minimalist interface with a bright and soft style has been developed. Smooth animation sequences have been implemented using layout optimization. Fully repeatable custom layout components have been structured.',
+      subtext: 'Project Showcase: Luxury Fragrance Concept Store'
+    },
+    // {
+    //   id: 3,
+    //   number: '03',
+    //   name: 'Django Rest Lab',
+    //   tags: ['Python', 'DRF', 'JWT', 'PostgreSQL'],
+    //   image: '/images/django-screenshot.png',
+    //   repo: 'https://github.com/koumorikai/django-rest-lab',
+    //   process: 'Architected standalone asynchronous web application routing. Layered customized JSON Web Token authorization validation protocol alongside robust CORS policies. Enhanced request execution caching via Redis configurations.',
+    //   subtext: 'Project Showcase: Backend Infrastructure Lab'
+    // }
+  ];
+
+  const currentProject = mockProjects.find(p => p.id === hoveredProjectId) || mockProjects[0];
+
+  const handleProjectClick = (id) => {
+    setHoveredProjectId(id);
+    if (window.innerWidth <= 850) {
+      document.querySelector('.visual-block-pane')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (tab) => {
+    setActiveTab(tab);
+    navigate('/');
+  };
+
+  return (
+    <div className={`portfolio-site ${globalLoading ? 'fade-hidden' : 'fade-visible'}`}>
+      <nav className="navbar">
+        <div className="logo" onClick={() => handleNavClick('hero')} style={{ cursor: 'pointer' }}>
+          <span className="logo-icon">♱</span> markelxvv
+        </div>
+        <div className="nav-links">
+          <button className={activeTab === 'hero' ? 'active' : ''} onClick={() => handleNavClick('hero')}>
+            HOME
+          </button>
+          <button className={activeTab === 'about' ? 'active' : ''} onClick={() => handleNavClick('about')}>
+            ABOUT
+          </button>
+          <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => handleNavClick('contact')}>
+            CONTACT
+          </button>
+          <button className="active" onClick={() => navigate('/portfolio')}>PORTFOLIO</button>
+        </div>
+      </nav>
+
+      <main className="portfolio-main-content">
+        <div className={`project-list-pane ${isVisualHovered ? 'shifted' : ''}`}>
+          <div className="project-list">
+            {mockProjects.map((project) => (
+              <div 
+                key={project.id}
+                className={`project-item ${hoveredProjectId === project.id ? 'active' : ''}`}
+                onMouseEnter={() => window.innerWidth > 850 && setHoveredProjectId(project.id)}
+                onClick={() => handleProjectClick(project.id)}
+              >
+                <span className="project-number">{project.number}</span>
+                <span className="project-name">{project.name}</span>
+              </div>
+            ))}
+
+            <div className="project-tags">
+              {currentProject.tags.map((tag, index) => (
+                <span key={index} className="tech-tag">[{tag}]</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div 
+          className="visual-block-pane"
+          onMouseEnter={() => window.innerWidth > 850 && setIsVisualHovered(true)}
+          onMouseLeave={() => window.innerWidth > 850 && setIsVisualHovered(false)}
+        >
+          <div className="avatar-blob portfolio-mask">
+            <img 
+              src={currentProject.image} 
+              alt={currentProject.name} 
+              className="portfolio-screenshot" 
+            />
+          </div>
+        </div>
+
+        <div className={`project-details-pane ${isVisualHovered ? 'visible' : ''}`}>
+          <div className="details-content">
+            <h3 className="details-title">{currentProject.name}</h3>
+            <p className="details-text">{currentProject.process}</p>
+          </div>
+        </div>
+      </main>
+
+      <footer className="hero-footer">
+        <div className="counter-section">
+          <span className="number">{currentProject.number}</span>
+          <div className="line"></div>
+          <span className="scroll-down subtext-fluid">{currentProject.subtext}</span>
+        </div>
+        <div className="copyright-notice-inline">
+          &copy; {new Date().getFullYear()} MARKELXVV. ALL RIGHTS RESERVED.
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function MainPortfolio({ triggerGlobalLoading, globalLoading, activeTab, setActiveTab }) {
   const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
@@ -46,7 +176,7 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
   return (
     <div className={`portfolio-site ${globalLoading ? 'fade-hidden' : 'fade-visible'}`}>
       <nav className="navbar">
-        <div className="logo">
+        <div className="logo" onClick={() => setActiveTab('hero')} style={{ cursor: 'pointer' }}>
           <span className="logo-icon">♱</span> markelxvv
         </div>
         <div className="nav-links">
@@ -59,7 +189,9 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
           <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => setActiveTab('contact')}>
             CONTACT
           </button>
-          <button onClick={() => navigate('/portfolio')}>PORTFOLIO</button>
+          <button className={useLocation().pathname === '/portfolio' ? 'active' : ''} onClick={() => navigate('/portfolio')}>
+            PORTFOLIO
+          </button>
         </div>
       </nav>
 
@@ -179,17 +311,25 @@ function MainPortfolio({ triggerGlobalLoading, globalLoading }) {
   );
 }
 
-function NotFound({ globalLoading }) {
+function NotFound({ globalLoading, setActiveTab }) {
   const navigate = useNavigate();
+
+  const handleGoHome = () => {
+    setActiveTab('hero');
+    navigate('/');
+  };
 
   return (
     <div className={`portfolio-site not-found-page ${globalLoading ? 'fade-hidden' : 'fade-visible'}`}>
       <nav className="navbar">
-        <div className="logo">
+        <div className="logo" onClick={handleGoHome} style={{ cursor: 'pointer' }}>
           <span className="logo-icon">♱</span> markelxvv
         </div>
         <div className="nav-links">
-          <button onClick={() => navigate('/')}>GO HOME</button>
+          <button onClick={handleGoHome}>GO HOME</button>
+          <button onClick={() => { setActiveTab('about'); navigate('/'); }}>ABOUT</button>
+          <button onClick={() => { setActiveTab('contact'); navigate('/'); }}>CONTACT</button>
+          <button onClick={() => navigate('/portfolio')}>PORTFOLIO</button>
         </div>
       </nav>
 
@@ -217,7 +357,7 @@ function NotFound({ globalLoading }) {
   );
 }
 
-function AppContent({ triggerGlobalLoading, globalLoading }) {
+function AppContent({ triggerGlobalLoading, globalLoading, activeTab, setActiveTab }) {
   const location = useLocation();
 
   useEffect(() => {
@@ -228,8 +368,9 @@ function AppContent({ triggerGlobalLoading, globalLoading }) {
 
   return (
     <Routes>
-      <Route path="/" element={<MainPortfolio triggerGlobalLoading={triggerGlobalLoading} globalLoading={globalLoading} />} />
-      <Route path="*" element={<NotFound globalLoading={globalLoading} />} />
+      <Route path="/" element={<MainPortfolio triggerGlobalLoading={triggerGlobalLoading} globalLoading={globalLoading} activeTab={activeTab} setActiveTab={setActiveTab} />} />
+      <Route path="/portfolio" element={<PortfolioPage globalLoading={globalLoading} activeTab={activeTab} setActiveTab={setActiveTab} />} />
+      <Route path="*" element={<NotFound globalLoading={globalLoading} setActiveTab={setActiveTab} />} />
     </Routes>
   );
 }
@@ -237,6 +378,7 @@ function AppContent({ triggerGlobalLoading, globalLoading }) {
 function App() {
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState('00');
+  const [activeTab, setActiveTab] = useState('hero');
 
   const triggerGlobalLoading = (duration = 100) => {
     setLoading(true);
@@ -251,7 +393,7 @@ function App() {
       } else {
         setCounter(count < 10 ? '0' + count : String(count));
       }
-    }, 5  );
+    }, 5);
 
     setTimeout(() => {
       clearInterval(interval);
@@ -266,7 +408,12 @@ function App() {
   return (
     <>
       <Preloader isVisible={loading} counterValue={counter} />
-      <AppContent triggerGlobalLoading={triggerGlobalLoading} globalLoading={loading} />
+      <AppContent 
+        triggerGlobalLoading={triggerGlobalLoading} 
+        globalLoading={loading} 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+      />
     </>
   );
 }
