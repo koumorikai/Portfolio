@@ -41,8 +41,7 @@ function PortfolioPage({ globalLoading, activeTab, setActiveTab }) {
       number: '02',
       name: 'Veloria Fina',
       tags: ['Vite', 'React','Minimalism'],
-      image: '/images/veloria-screenshot.png',
-      repo: `${import.meta.env.BASE_URL}images/veloria-fina.png`,
+      image: '/images/veloria-screenshot.png',repo: `${import.meta.env.BASE_URL}images/veloria-fina-project.png`,
       process: 'A high-contrast, minimalist interface with a bright and soft style has been developed. Smooth animation sequences have been implemented using layout optimization. Fully repeatable custom layout components have been structured.',
       subtext: 'Project Showcase: Luxury Fragrance Concept Store'
     },
