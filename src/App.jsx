@@ -48,7 +48,7 @@ function PortfolioPage({ globalLoading, activeTab, setActiveTab }) {
     {
       id: 3,
       number: '03',
-      name: 'Django Rest Lab',
+      name: 'markelxvVPN',
       tags: ['Flutter', 'Dart', 'Pay', 'tg bots', 'Python', 'VPN'],
       image: `${import.meta.env.BASE_URL}images/markelxvVPN.png`,
       repo: 'https://github.com/koumorikai/markelxvVPN',
