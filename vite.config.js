@@ -1,6 +1,10 @@
-import react from '@vitejs/plugin-react'
+import { HashRouter } from 'react-router-dom';
 
-export default {
-  plugins: [react()],
-  base: './',
-}
+// В коде:
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </React.StrictMode>
+);
