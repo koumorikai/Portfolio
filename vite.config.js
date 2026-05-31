@@ -1,10 +1,8 @@
-import { HashRouter } from 'react-router-dom';
+// vite.config.js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
-// В коде:
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </React.StrictMode>
-);
+export default defineConfig({
+  plugins: [react()],
+  base: '/Portfolio/', // Укажи точное имя твоего репозитория
+})
