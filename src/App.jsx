@@ -45,16 +45,16 @@ function PortfolioPage({ globalLoading, activeTab, setActiveTab }) {
       process: 'A high-contrast, minimalist interface with a bright and soft style has been developed. Smooth animation sequences have been implemented using layout optimization. Fully repeatable custom layout components have been structured.',
       subtext: 'Project Showcase: Luxury Fragrance Concept Store'
     },
-    // {
-    //   id: 3,
-    //   number: '03',
-    //   name: 'Django Rest Lab',
-    //   tags: ['Python', 'DRF', 'JWT', 'PostgreSQL'],
-    //   image: '/images/django-screenshot.png',
-    //   repo: 'https://github.com/koumorikai/django-rest-lab',
-    //   process: 'Architected standalone asynchronous web application routing. Layered customized JSON Web Token authorization validation protocol alongside robust CORS policies. Enhanced request execution caching via Redis configurations.',
-    //   subtext: 'Project Showcase: Backend Infrastructure Lab'
-    // }
+    {
+      id: 3,
+      number: '03',
+      name: 'Django Rest Lab',
+      tags: ['Flutter', 'Dart', 'Pay', 'tg bots', 'Python', 'VPN'],
+      image: `${import.meta.env.BASE_URL}images/markelxvVPN.png`,
+      repo: 'https://github.com/koumorikai/markelxvVPN',
+      process: 'markelxvVPN is a secure and high-performance VPN solution designed to provide privacy and unrestricted internet access. The project focuses on building a seamless connection between a mobile user interface and a robust backend infrastructure.',
+      subtext: 'Project Showcase: VPN Services'
+    }
   ];
 
   const currentProject = mockProjects.find(p => p.id === hoveredProjectId) || mockProjects[0];
