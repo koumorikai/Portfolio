@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import PixelTrail from './components/ui/PixelTrail/PixelTrail';
 import './App.css';
 
 function Preloader({ isVisible, counterValue }) {
@@ -41,7 +42,8 @@ function PortfolioPage({ globalLoading, activeTab, setActiveTab }) {
       number: '02',
       name: 'Veloria Fina',
       tags: ['Vite', 'React','Minimalism'],
-      image:  `${import.meta.env.BASE_URL}images/veloria-fina-project.png`,repo:'',
+      image:  `${import.meta.env.BASE_URL}images/veloria-fina-project.png`,
+      repo: '',
       process: 'A high-contrast, minimalist interface with a bright and soft style has been developed. Smooth animation sequences have been implemented using layout optimization. Fully repeatable custom layout components have been structured.',
       subtext: 'Project Showcase: Luxury Fragrance Concept Store'
     },
@@ -405,15 +407,42 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Preloader isVisible={loading} counterValue={counter} />
-      <AppContent 
-        triggerGlobalLoading={triggerGlobalLoading} 
-        globalLoading={loading} 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
+    <div style={{ 
+      position: 'relative', 
+      width: '100%', 
+      height: '100vh', 
+      backgroundColor: '#0a0a0a', 
+      overflow: 'hidden' 
+    }}>
+      
+
+      <PixelTrail
+        gridSize={60}
+        trailSize={0.08}
+        maxAge={500}
+        interpolate={8}
+        color="#ffffff" // Белый цвет следа
+        gooeyFilter={{ id: "portfolio-goo", strength: 3 }}
       />
-    </>
+
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1
+      }}>
+        <Preloader isVisible={loading} counterValue={counter} />
+        <AppContent 
+          triggerGlobalLoading={triggerGlobalLoading} 
+          globalLoading={loading} 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab} 
+        />
+      </div>
+
+    </div>
   );
 }
 
